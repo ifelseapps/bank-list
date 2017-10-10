@@ -17,11 +17,16 @@
       </tr>
     </tbody>
   </table>
-  <div v-else>Загрузка...</div>
+  <v-loader v-else></v-loader>
 </template>
 <script>
+import Loader from './loader.vue'
+
 export default {
   name: 'v-table',
+  components: {
+    'v-loader': Loader
+  },
   props: {
     columns: { type: Array, required: true }
   },

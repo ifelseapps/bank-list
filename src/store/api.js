@@ -10,7 +10,7 @@ export default {
     getList() {
         return new Promise((resolve, reject) => {
             // TODO: обработка ошибок 
-            setTimeout(() => resolve(list), 500)
+            setTimeout(() => resolve(list), 1500)
         })
     }
 }
