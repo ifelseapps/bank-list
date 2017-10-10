@@ -95,4 +95,16 @@ export default {
       font-weight: 700
       &::after
         content: ':'
+
+  @media print
+    .table
+      &__cell
+        padding: 0 10px
+        border: solid 1px black
+
+      &__header &__cell
+        background: none
+
+      &__row:last-child &__cell
+        border-bottom: solid 1px black
 </style>

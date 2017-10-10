@@ -45,4 +45,13 @@ body
     &_1
       font-size: 30px
       color: $main-color
+
+@media print
+  .page
+    width: 100%
+    margin: 0
+
+  body,
+  .header
+    color: black
 </style>
