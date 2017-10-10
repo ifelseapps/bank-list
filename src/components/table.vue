@@ -32,6 +32,14 @@ export default {
 
   computed: {
     getList() {
+      const search = this.$store.state.search
+
+      if (search.length) {
+        return this.$store.state.list.filter(
+          (item) => item.name.indexOf(search) >= 0 || item.bik.indexOf(search) >= 0
+        )
+      }
+
       return this.$store.state.list
     },
 

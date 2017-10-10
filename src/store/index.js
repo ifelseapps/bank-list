@@ -5,12 +5,17 @@ import api from './api.js'
 Vue.use(Vuex)
 
 const state = {
+  search: '',
   list: []
 }
 
 const mutations = {
   allList(state, list) {
     state.list = list
+  },
+
+  search(state, value) {
+    state.search = value
   }
 }
 

@@ -1,12 +1,14 @@
 <template>
   <main class="page" id="root">
     <h1 class="header header_lvl_1">{{ title }}</h1>
-    <v-table :columns="columns"></v-table>
+    <v-search placeholder="Введите БИК или название банка" class="page__search"></v-search>
+    <v-table :columns="columns" class="page__list"></v-table>
   </main>
 </template>
 
 <script>
 import Table from './components/table.vue'
+import Search from './components/search.vue'
 
 export default {
   name: 'app',
@@ -22,7 +24,8 @@ export default {
     }
   },
   components: {
-    'v-table': Table
+    'v-table': Table,
+    'v-search': Search
   }
 }
 </script>
@@ -38,8 +41,14 @@ body
   width: 90%
   margin: 30px auto
 
+  &__search
+    margin: 10px 0
+
+  &__list
+    margin-top: 20px
+
 .header
-  margin: 0 0 10px
+  margin: 0
 
   &_lvl
     &_1
@@ -50,6 +59,9 @@ body
   .page
     width: 100%
     margin: 0
+
+    &__search
+      display: none
 
   body,
   .header
