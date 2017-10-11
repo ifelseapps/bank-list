@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 const state = {
   search: '',
-  list: []
+  list: null
 }
 
 const mutations = {
@@ -21,7 +21,12 @@ const mutations = {
 
 const actions = {
   fetch({ commit }) {
-    api.getList().then((list) => commit('allList', list))
+    api.fetch().then((list) => commit('allList', list))
+  },
+
+  save({ commit }, row) {
+    commit('allList', [])
+    api.save(row).then((list) => commit('allList', list))
   }
 }
 

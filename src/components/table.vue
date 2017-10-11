@@ -1,34 +1,57 @@
 <template>
-  <table v-if="isLoaded" class="table">
-    <thead class="table__header">
-      <td v-for="col in columns" class="table__cell">{{ col.title }}</td>
-    </thead>
-    <tbody>
-      <tr v-for="item in getList" class="table__row">
-        <td v-for="col in columns" class="table__cell">
-          <span :class="{ 'table__mobile-header': col.isTitle }">{{ item[col.code] }}</span>
-          <div v-if="col.isTitle" class="mobile-props">
-            <div v-for="col in getMobileProps" class="mobile-props__item prop">
-              <div class="prop__title">{{ col.title }}</div>
-              <div class="prop__value">{{ item[col.code] }}</div>
+  <div>
+    <v-modal
+      :show="showModal"
+      :fields="columns"
+      :id="editId"
+      @close="closeModal"></v-modal>
+    <button @click="edit(0)">Добавить банк</button>
+    <table v-if="isLoaded" class="table">
+      <thead class="table__header">
+        <td v-for="col in columns" class="table__cell">{{ col.title }}</td>
+        <td class="table__cell"></td>
+      </thead>
+      <tbody>
+        <tr v-for="item in getList" class="table__row">
+          <td v-for="col in columns" class="table__cell">
+            <span :class="{ 'table__mobile-header': col.isTitle }">{{ item[col.code] }}</span>
+            <div v-if="col.isTitle" class="mobile-props">
+              <div v-for="col in getMobileProps" class="mobile-props__item prop">
+                <div class="prop__title">{{ col.title }}</div>
+                <div class="prop__value">{{ item[col.code] }}</div>
+              </div>
             </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <v-loader v-else></v-loader>
+          </td>
+          <td class="table__cell">
+            <svg @click="edit(item.id)" class="table__edit-icon">
+              <use xlink:href="#icon-edit"></use>
+            </svg>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <v-loader v-else></v-loader>    
+  </div>
 </template>
 <script>
 import Loader from './loader.vue'
+import Modal from './modal.vue'
 
 export default {
   name: 'v-table',
   components: {
-    'v-loader': Loader
+    'v-loader': Loader,
+    'v-modal': Modal
   },
   props: {
     columns: { type: Array, required: true }
+  },
+
+  data() {
+    return {
+      showModal: false,
+      editId: 0
+    }
   },
 
   created() {
@@ -53,7 +76,18 @@ export default {
     },
 
     isLoaded() {
-      return this.$store.state.list.length > 0
+      return this.$store.state.list === null || this.$store.state.list.length > 0
+    }
+  },
+
+  methods: {
+    edit(id) {
+      this.showModal = true
+      this.editId = id
+    },
+
+    closeModal() {
+      this.showModal = false
     }
   }
 }
@@ -80,13 +114,24 @@ export default {
     &__row:last-child &__cell
       border-bottom: none
 
+    &__edit-icon
+      width: 18px
+      height: 18px
+      fill: grey
+      transition: all 0.3s
+      &:hover
+        fill: $main-color
+
   @media screen and (max-width: $mobile-desktop)
-    .table__cell:not(:first-child)
+    .table__cell:not(:first-child):not(:last-child)
       display: none
 
     .table__cell:first-child
       font-size: 16px
     
+    .table__cell:last-child
+      vertical-align: top
+
     .table__header
       display: none
 

@@ -1,16 +1,34 @@
-const list = [
-    { id: 1, name: 'ООО КБ "Ярославич"', bik: '0123456789', coracc: 476534765834465, address: 'г.Ярославль, ул.Свободы, 1' },
-    { id: 2, name: 'ОАО "Бинбанк"', bik: '0123456890', coracc: 476534765834465, address: 'г.Комсомольск на Амуре, ул.Красного знамени, 67' },
-    { id: 3, name: 'ОАО "Северный банк сбербанка России"', bik: '0123456456', coracc: 476534765834465, address: 'г.Мантурово, ул.Ленина, 58' },
-    { id: 4, name: 'ОАО "Альфабанк"', bik: '01234567123', coracc: 476534765834465, address: 'г.Ростов на Дону, ул.Ленина, 32' },
-    { id: 5, name: 'ОАО КБ "Банк Москвы"', bik: '0123456456', coracc: 476534765834465, address: 'г.Москва, Проспект Мира, 100' }
-]
-
 export default {
-    getList() {
+    getStorage() {
+        return localStorage['banks'] ? JSON.parse(localStorage['banks']) : []
+    },
+
+    getId() {
+        return this.getStorage().length + 1
+    },
+
+    fetch() {
         return new Promise((resolve, reject) => {
-            // TODO: обработка ошибок 
-            setTimeout(() => resolve(list), 1500)
+            setTimeout(() => resolve(this.getStorage()), 1000)
+        })
+    },
+
+    save(row) {
+        const list = this.getStorage()
+
+        if (row.id > 0) {
+            let oldRow = list.filter((item) => item.id === row.id)[0]
+            let index = list.indexOf(oldRow)
+            list[index] = row
+        } else {
+            row.id = this.getId()
+            list.push(row)
+        }
+
+        localStorage['banks'] = JSON.stringify(list)
+
+        return new Promise((resolve, reject) => {
+            setTimeout(() => resolve(list), 1000)
         })
     }
 }
