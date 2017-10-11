@@ -7,6 +7,7 @@ Vue.use(Vuex)
 const state = {
   search: '',
   completed: false,
+  errors: {},
   list: []
 }
 

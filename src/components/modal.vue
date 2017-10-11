@@ -26,39 +26,46 @@ export default {
   props: {
       show: { type: Boolean, required: true },
       fields: { type: Array, required: true },
-      id: { type: Number, required: true }
+      id: [Number, Boolean]
   },
 
   data() {
-      return {}
+      return {
+
+      }
   },
 
   computed: {
     values() {
         if (this.id > 0) {
-            return this.$store.state.list.filter((item) => item.id === this.id)[0]
+            let values = this.$store.state.list.filter((item) => item.id === this.id)[0]
+            return Object.keys(values).reduce((result, field) => {
+                result[field] = values[field]
+                return result
+            }, {})
         }
 
-        return this.getCleanValues()          
+        return this.getCleanValues()
     }      
   },
 
-  methods: {
-      getCleanValues() {
+  methods: {   
+    getCleanValues() {
         return this.fields.reduce((result, field) => {
             result[field.code] = ''
             return result
         }, {})
-      },
+    },
 
-      apply() {
-          this.$store.dispatch('save', this.values)
-          this.$emit('close')
-      },
-
-      close() {
+    apply() {
+        this.$store.dispatch('save', this.values)
+        this.success = true
         this.$emit('close')
-      }
+    },
+
+    close() {
+        this.$emit('close')
+    }
   }
 }
 </script>

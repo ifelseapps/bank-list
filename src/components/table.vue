@@ -87,6 +87,7 @@ export default {
     },
 
     closeModal() {
+      this.editId = false
       this.showModal = false
     }
   }
