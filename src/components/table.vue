@@ -6,8 +6,8 @@
     <tbody>
       <tr v-for="item in getList" class="table__row">
         <td v-for="col in columns" class="table__cell">
-          <span class="table__mobile-header">{{ item[col.code] }}</span>
-          <div class="mobile-props">
+          <span :class="{ 'table__mobile-header': col.isTitle }">{{ item[col.code] }}</span>
+          <div v-if="col.isTitle" class="mobile-props">
             <div v-for="col in getMobileProps" class="mobile-props__item prop">
               <div class="prop__title">{{ col.title }}</div>
               <div class="prop__value">{{ item[col.code] }}</div>
