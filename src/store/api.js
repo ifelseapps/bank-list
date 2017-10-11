@@ -15,7 +15,7 @@ export default {
 
     save(row) {
         const list = this.getStorage()
-
+        
         if (row.id > 0) {
             let oldRow = list.filter((item) => item.id === row.id)[0]
             let index = list.indexOf(oldRow)

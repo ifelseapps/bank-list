@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from './api.js'
-
 Vue.use(Vuex)
 
 const state = {
