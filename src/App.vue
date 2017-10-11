@@ -2,7 +2,7 @@
   <main class="page" id="root">
     <h1 class="header header_lvl_1">{{ title }}</h1>
     <v-search placeholder="Введите БИК или название банка" class="page__search"></v-search>
-    <v-table :columns="columns" class="page__list"></v-table>
+    <v-table :columns="columns" class="page__table"></v-table>
   </main>
 </template>
 
@@ -41,11 +41,12 @@ body
   width: 90%
   margin: 30px auto
 
-  &__search
-    margin: 10px 0
+  &__add
+    margin-bottom: 10px
 
-  &__list
-    margin-top: 20px
+  &__search,
+  &__table
+    margin: 10px 0
 
 .header
   margin: 0
@@ -60,7 +61,8 @@ body
     width: 100%
     margin: 0
 
-    &__search
+    &__search,
+    &__add
       display: none
 
   body,

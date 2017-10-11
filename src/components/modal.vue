@@ -12,9 +12,9 @@
                     :name="field.code"
                     type="text">
               </div>
-              <div class="modal-form__buttons">
-                  <button @click="apply()">Сохранить</button>
-                  <button @click="$emit('close')">Отмена</button>
+              <div>
+                  <button @click="apply()" class="button button_success modal-form__button">Сохранить</button>
+                  <button @click="close()" class="button button_deny modal-form__button">Отмена</button>
               </div>
           </div>
       </div>
@@ -39,17 +39,25 @@ export default {
             return this.$store.state.list.filter((item) => item.id === this.id)[0]
         }
 
-        return this.fields.reduce((result, field) => {
-            result[field.code] = ''
-            return result
-        }, {})          
+        return this.getCleanValues()          
     }      
   },
 
   methods: {
+      getCleanValues() {
+        return this.fields.reduce((result, field) => {
+            result[field.code] = ''
+            return result
+        }, {})
+      },
+
       apply() {
           this.$store.dispatch('save', this.values)
           this.$emit('close')
+      },
+
+      close() {
+        this.$emit('close')
       }
   }
 }
@@ -58,6 +66,9 @@ export default {
     @import '../sass/common'
 
     .modal
+        @media print
+            display: none
+
         &__overlay
             position: fixed
             top: 0
@@ -71,17 +82,39 @@ export default {
             top: 50%
             left: 50%
             transform: translate(-50%, -50%)
-            width: 40%
-            height: 40%
+            width: 50%
+            max-height: 70%
             padding: 20px
             box-sizing: border-box
             overflow: auto
             background: white
             box-shadow: 0px 0px 22px 3px rgba(0,0,0,0.43)
+            @media screen and (max-width: $mobile-desktop)
+                width: 90%
+                max-height: 90%
         
     .modal-form
+        &__button
+            margin-right: 20px
+            @media screen and (max-width: $mobile-desktop)
+                width: 100%
+                margin-right: 0
+                margin-bottom: 10px
+                &:last-child
+                    margin-bottom: 0
+
+        &__fields
+            margin-bottom: 20px
+
         &__field
             display: block
             width: 100%
             margin: 10px 0
+    
+    .field
+        padding: 5px 10px
+        box-sizing: border-box
+        border: solid 1px grey
+        &:focus
+            outline: solid 2px $sub-color
 </style>

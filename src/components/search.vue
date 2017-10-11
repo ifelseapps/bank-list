@@ -1,7 +1,7 @@
 <template>
-  <div class="input">
-      <svg class="input__icon"><use xlink:href="#icon-search"></use></svg>
-      <input v-model="search" class="input__field" type="text" :placeholder="placeholder">
+  <div class="search">
+      <svg class="search__icon"><use xlink:href="#icon-search"></use></svg>
+      <input v-model="search" class="search__field" type="text" :placeholder="placeholder">
   </div>
 </template>
 <script>
@@ -23,7 +23,7 @@ export default {
 }
 </script>
 <style lang="sass">
-.input
+.search
     position: relative
 
     &__icon

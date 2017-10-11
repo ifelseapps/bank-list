@@ -5,7 +5,7 @@
       :fields="columns"
       :id="editId"
       @close="closeModal"></v-modal>
-    <button @click="edit(0)">Добавить банк</button>
+    <button @click="edit(0)" class="button button_success page__add">Добавить банк</button>
     <table v-if="isLoaded" class="table">
       <thead class="table__header">
         <td v-for="col in columns" class="table__cell">{{ col.title }}</td>
@@ -76,7 +76,7 @@ export default {
     },
 
     isLoaded() {
-      return this.$store.state.list === null || this.$store.state.list.length > 0
+      return this.$store.state.completed
     }
   },
 
@@ -102,6 +102,8 @@ export default {
     &__cell
       padding: 10px 5px
       border-bottom: solid 2px #69F0AE
+      &:last-child
+        text-align: right
 
     &__header &__cell
       background: #69F0AE
@@ -159,6 +161,8 @@ export default {
       &__cell
         padding: 0 10px
         border: solid 1px black
+        &:last-child
+          display: none
 
       &__header &__cell
         background: none

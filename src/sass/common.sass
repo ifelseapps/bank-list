@@ -2,5 +2,29 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i,900,900i')
 
 $main-color: #00C853
-
+$sub-color: #69F0AE
 $mobile-desktop: 720px
+
+.button
+    padding: 10px 20px
+    border: solid 2px
+    background: none
+    font-weight: 700
+    cursor: pointer
+    transition: all 0.3s
+    &:hover
+        color: white
+    &:focus
+        outline: none
+
+    &_success
+        color: $main-color
+        border-color: $main-color
+        &:hover
+            background: $main-color
+
+    &_deny
+        color: red
+        border-color: red
+        &:hover
+            background: red

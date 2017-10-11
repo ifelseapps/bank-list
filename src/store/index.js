@@ -6,12 +6,14 @@ Vue.use(Vuex)
 
 const state = {
   search: '',
-  list: null
+  completed: false,
+  list: []
 }
 
 const mutations = {
   allList(state, list) {
     state.list = list
+    state.completed = true
   },
 
   search(state, value) {
@@ -24,8 +26,8 @@ const actions = {
     api.fetch().then((list) => commit('allList', list))
   },
 
-  save({ commit }, row) {
-    commit('allList', [])
+  save({ commit, state }, row) {
+    state.completed = false
     api.save(row).then((list) => commit('allList', list))
   }
 }
